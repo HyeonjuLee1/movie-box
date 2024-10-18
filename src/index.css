@@ -3,5 +3,7 @@
 @tailwind utilities;
 
 body {
-  margin: 10;
+  margin: 0;
+  background-color: #1b1b1b;
+  font-family: "Noto Sans KR", sans-serif;
 }
