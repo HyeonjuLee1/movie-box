@@ -5,16 +5,20 @@ import Search from "./pages/Search";
 import TVShowDetail from "./pages/TVShowDetail";
 import MovieDetail from "./pages/MovieDetail";
 import NotFound from "./pages/NotFound";
+import Header from "./components/Header";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/movie/detail/:id" element={<MovieDetail />} />
-      <Route path="/tvshow/detail/:id" element={<TVShowDetail />} />
-      <Route path="/search" element={<Search />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/movie/detail/:id" element={<MovieDetail />} />
+        <Route path="/tvshow/detail/:id" element={<TVShowDetail />} />
+        <Route path="/search/:keyword" element={<Search />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 }
 
