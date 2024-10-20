@@ -6,6 +6,7 @@ import { useState } from "react";
 import { videoList } from "../mocks/data/videoList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileImage } from "@fortawesome/free-solid-svg-icons";
+import SkeletonVideo from "./SkeletonVideo";
 
 const VideoSwiperList = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -28,10 +29,7 @@ const VideoSwiperList = () => {
         >
           {loading &&
             Array.from({ length: 5 }).map((_, index) => (
-              <div
-                key={index}
-                className="w-[216px] h-[327px] rounded-lg bg-gray-200 relative overflow-hidden animate-pulse"
-              ></div>
+              <SkeletonVideo index={index} />
             ))}
           {!loading && (
             <Swiper slidesPerView={5} spaceBetween={10} className="mySwiper">
