@@ -2,14 +2,29 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { useState } from "react";
 import { videoList } from "../mocks/data/videoList";
 import SkeletonVideo from "./SkeletonVideo";
 import VideoItem from "./VideoItem";
 
-const VideoSwiperList = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+interface VideoDataProps {
+  id: number;
+  title: string;
+  poster_path: number;
+}
 
+interface VideoSwiperListProps {
+  loading: boolean;
+  listTitle: string;
+  mode: string;
+  videoData?: VideoDataProps;
+}
+
+const VideoSwiperList = ({
+  loading,
+  listTitle,
+  mode,
+  videoData,
+}: VideoSwiperListProps) => {
   return (
     <section>
       <div
@@ -18,7 +33,7 @@ const VideoSwiperList = () => {
         }`}
       >
         <div className="flex justify-between mb-5">
-          <span className="text-white text-[24px]">타이틀</span>
+          <span className="text-white text-[24px]">{listTitle}</span>
         </div>
         {/* 비디오 영역 */}
         <div
