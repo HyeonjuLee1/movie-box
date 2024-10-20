@@ -1,9 +1,11 @@
 import Banner from "../components/Banner/Banner";
+import VideoSwiperList from "../components/VideoSwiperList";
 
 const Home = () => {
   return (
-    <div className="text-white">
+    <div>
       <Banner />
+      <VideoSwiperList />
     </div>
   );
 };

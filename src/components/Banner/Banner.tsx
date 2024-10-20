@@ -11,7 +11,7 @@ import { banners } from "../../mocks/data/banners";
 
 const Banner = () => {
   const swiperInstance = useRef<SwiperClass | null>(null);
-  const [isAutoPlay, setIsAutoPlay] = useState(true);
+  const [isAutoPlay, setIsAutoPlay] = useState<boolean>(true);
 
   const onSwiper = (swiper: SwiperClass) => {
     swiperInstance.current = swiper;
