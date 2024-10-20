@@ -5,12 +5,11 @@ import Search from "./pages/Search";
 import TVShowDetail from "./pages/TVShowDetail";
 import MovieDetail from "./pages/MovieDetail";
 import NotFound from "./pages/NotFound";
-import Header from "./components/Header";
+import { CommonLayout } from "./layout/CommonLayout";
 
 function App() {
   return (
-    <>
-      <Header />
+    <CommonLayout>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/movie/detail/:id" element={<MovieDetail />} />
@@ -18,7 +17,7 @@ function App() {
         <Route path="/search/:keyword" element={<Search />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </>
+    </CommonLayout>
   );
 }
 

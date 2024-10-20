@@ -1,5 +1,11 @@
+import Banner from "../components/Banner";
+
 const Home = () => {
-  return <div>홈 입니다.</div>;
+  return (
+    <div className=" text-white">
+      <Banner />
+    </div>
+  );
 };
 
 export default Home;
