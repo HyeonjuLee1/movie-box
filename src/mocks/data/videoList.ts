@@ -3,8 +3,8 @@ export const videoList = [{
       title:
         "강철부대W",
       poster_path:
-    //   ""
-        "https://image.wavve.com/v1/thumbnails/480_720_20_80/meta/image/202409/1727073001312600950.jpg",
+     ""
+        // "https://image.wavve.com/v1/thumbnails/480_720_20_80/meta/image/202409/1727073001312600950.jpg",
 
     },
     {
@@ -12,8 +12,8 @@ export const videoList = [{
       title:
         "원피스 31기 (자막)",
       poster_path:
-    //   ""
-      "https://image.wavve.com/v1/thumbnails/480_720_20_80/meta/image/202409/1727679685902220639.jpg",
+   ""
+    //   "https://image.wavve.com/v1/thumbnails/480_720_20_80/meta/image/202409/1727679685902220639.jpg",
 
     },
     {
