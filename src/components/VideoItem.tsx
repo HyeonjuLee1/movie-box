@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileImage } from "@fortawesome/free-solid-svg-icons";
+import { GET_POSTER_URI } from "../utils/constants";
 
 interface VideoItemProps {
   poster_path: string;
@@ -13,7 +14,7 @@ const VideoItem = ({ poster_path, title, rank }: VideoItemProps) => {
       {poster_path ? (
         <>
           <img
-            src={poster_path}
+            src={`${GET_POSTER_URI}${poster_path}`}
             alt={title}
             className="w-[216px] h-[327px] rounded-xl cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
           />

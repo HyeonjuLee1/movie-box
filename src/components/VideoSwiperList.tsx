@@ -2,21 +2,22 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { videoList } from "../mocks/data/videoList";
 import SkeletonVideo from "./SkeletonVideo";
 import VideoItem from "./VideoItem";
+// 테스트용 데이터
+// import { videoList } from "../mocks/data/videoList";
 
 interface VideoDataProps {
   id: number;
   title: string;
-  poster_path: number;
+  poster_path: string;
 }
 
 interface VideoSwiperListProps {
   loading: boolean;
   listTitle: string;
   mode: string;
-  videoData?: VideoDataProps;
+  videoData?: VideoDataProps[];
 }
 
 const VideoSwiperList = ({
@@ -25,6 +26,7 @@ const VideoSwiperList = ({
   mode,
   videoData,
 }: VideoSwiperListProps) => {
+  console.log("컴포넌트", videoData);
   return (
     <section>
       <div
@@ -45,9 +47,10 @@ const VideoSwiperList = ({
             Array.from({ length: 5 }).map((_, index) => (
               <SkeletonVideo index={index} />
             ))}
-          {!loading && (
+
+          {!loading && videoData && (
             <Swiper slidesPerView={5} spaceBetween={10}>
-              {videoList.map((video, index) => (
+              {videoData.map((video, index) => (
                 <SwiperSlide key={video.id}>
                   <VideoItem
                     poster_path={video.poster_path}
