@@ -1,0 +1,96 @@
+/* 스와이퍼 */
+.swiper {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+}
+
+.swiper-slide {
+  width: fit-content !important;
+  height: fit-content;
+  text-align: center;
+  font-size: 18px;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  max-width: 1120px;
+}
+
+.no-image-text {
+  color: white;
+}
+
+/* 네비게이션 */
+.swiper-button-next {
+  color: #a5a5a5 !important;
+  top: 46% !important;
+  right: 120px !important;
+}
+
+.swiper-button-prev {
+  color: #a5a5a5 !important;
+  top: 46% !important;
+  left: 120px !important;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  color: #a5a5a5;
+  font-size: 75px !important;
+}
+
+.swiper-button-next:hover:after,
+.swiper-button-prev:hover:after {
+  color: white;
+}
+
+/* 페이지네이션 */
+.main-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 518px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+}
+
+.swiper-pagination {
+  position: static !important;
+  width: auto;
+  font-size: 0;
+  vertical-align: middle;
+}
+
+.autoplay-icon-btn {
+  width: 34px;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  margin-right: 5px;
+}
+
+.autoplay-icon {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  color: white;
+}
+
+.swiper-pagination-bullet {
+  background: #e8e8e8 !important;
+  width: 10px !important;
+  height: 10px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: white !important;
+}
