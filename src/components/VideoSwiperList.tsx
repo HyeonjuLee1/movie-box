@@ -2,14 +2,29 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { useState } from "react";
 import { videoList } from "../mocks/data/videoList";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileImage } from "@fortawesome/free-solid-svg-icons";
+import SkeletonVideo from "./SkeletonVideo";
+import VideoItem from "./VideoItem";
 
-const VideoSwiperList = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+interface VideoDataProps {
+  id: number;
+  title: string;
+  poster_path: number;
+}
 
+interface VideoSwiperListProps {
+  loading: boolean;
+  listTitle: string;
+  mode: string;
+  videoData?: VideoDataProps;
+}
+
+const VideoSwiperList = ({
+  loading,
+  listTitle,
+  mode,
+  videoData,
+}: VideoSwiperListProps) => {
   return (
     <section>
       <div
@@ -18,7 +33,7 @@ const VideoSwiperList = () => {
         }`}
       >
         <div className="flex justify-between mb-5">
-          <span className="text-white text-[24px]">타이틀</span>
+          <span className="text-white text-[24px]">{listTitle}</span>
         </div>
         {/* 비디오 영역 */}
         <div
@@ -28,41 +43,17 @@ const VideoSwiperList = () => {
         >
           {loading &&
             Array.from({ length: 5 }).map((_, index) => (
-              <div
-                key={index}
-                className="w-[216px] h-[327px] rounded-lg bg-gray-200 relative overflow-hidden animate-pulse"
-              ></div>
+              <SkeletonVideo index={index} />
             ))}
           {!loading && (
-            <Swiper slidesPerView={5} spaceBetween={10} className="mySwiper">
+            <Swiper slidesPerView={5} spaceBetween={10}>
               {videoList.map((video, index) => (
                 <SwiperSlide key={video.id}>
-                  <div className="rounded-xl mb-[80px] overflow-hidden">
-                    {video.poster_path ? (
-                      <>
-                        <img
-                          src={video.poster_path}
-                          alt={video.title}
-                          className="w-[216px] h-[327px] rounded-xl cursor-pointer transition-transform duration-300 ease-in-out"
-                        />
-                        <div className="text-white text-[90px] font-bold italic flex absolute bottom-5">
-                          {index + 1}
-                        </div>
-                      </>
-                    ) : (
-                      <div className="w-[216px] h-[327px] rounded-xl transition-transform duration-300 ease-in-out cursor-default scale-100">
-                        <div className="flex h-full flex-col justify-center">
-                          <FontAwesomeIcon
-                            icon={faFileImage}
-                            className="text-white text-[90px] mb-10"
-                          />
-                          <span className="text-white">
-                            포스터 준비중입니다.
-                          </span>
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                  <VideoItem
+                    poster_path={video.poster_path}
+                    title={video.title}
+                    rank={index + 1}
+                  />
                 </SwiperSlide>
               ))}
             </Swiper>
