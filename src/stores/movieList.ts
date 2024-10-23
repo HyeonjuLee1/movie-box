@@ -1,19 +1,13 @@
 import { create } from 'zustand'
 import  { AxiosError } from 'axios';
 import axiosInst from "../utils/axiosInst";
-
-
-interface Movie {
-  id: number;
-  title: string;
-  poster_path: string;
-}
+import { VideoDataProps } from '../types';
 
 interface MovieState {
-  dayTrending: Movie[] ;
-  weekTrending: Movie[] ;
-  popular: Movie[] ;
-  upcoming: Movie[] ;
+  dayTrending: VideoDataProps[] ;
+  weekTrending: VideoDataProps[] ;
+  popular: VideoDataProps[] ;
+  upcoming: VideoDataProps[] ;
   isDayTrendingLoading: boolean;
   isWeekTrendingLoading: boolean;
   isPopularLoading: boolean;
@@ -97,13 +91,14 @@ const useMovieStore = create<MovieState>((set) => ({
   getUpcoming: async () => {
     set({ isUpcomingLoading: true });
     try {
-      const data = await getAPI('movie/upcoming?include_adult=true&language=ko&page=1&release_date.gte=2024-10-22');
-      // console.log("upcoming", data);
-      // 개봉예정인 날짜로 영화가 제대로 필터링 되지 않는 이슈
+      //upcomming 엔드포인트는 날짜로 필터링이 잘되지 않아 /discover/movie로 사용
+      // const data = await getAPI('movie/upcoming?include_adult=true&language=ko&page=1&release_date.gte=2024-10-22');
       // 오늘 날짜 이후의 영화만 set
-      const today = new Date().toISOString().split('T')[0];
-    const upcomingMovies = data.results.filter((movie: { release_date: string | number | Date; }) => new Date(movie.release_date) >= new Date(today));
-      set({ upcoming: upcomingMovies});
+      const today = new Date();
+      const formattedDate = today.toISOString().split('T')[0];
+      const data = await getAPI(`/discover/movie?include_adult=true&language=ko&page=1&primary_release_date.gte=${formattedDate}`);
+      console.log("upcoming", data.results);
+      set({ upcoming: data.results});
     } catch (error) {
       console.error('upcoming Error data:', error);
     } finally {

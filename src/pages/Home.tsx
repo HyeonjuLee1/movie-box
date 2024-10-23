@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import Banner from "../components/Banner/Banner";
 import VideoSwiperList from "../components/VideoSwiperList";
 import useMovieStore from "../stores/movieList";
+import useTVShowStore from "../stores/tvShowList";
 
 const Home = () => {
   const {
@@ -19,13 +20,31 @@ const Home = () => {
     getUpcoming,
   } = useMovieStore();
 
+  const {
+    dayTVShowTrendingList,
+    weekTVShowTrendingList,
+    isDayTrendingTVShowLoading,
+    isWeekTrendingTVShowLoading,
+    getDayTVShowTrending,
+    getWeekTVShowTrending,
+  } = useTVShowStore();
+
   useEffect(() => {
     getDayTrending();
     getWeekTrending();
     getPopular();
     getUpcoming();
+    getDayTVShowTrending();
+    getWeekTVShowTrending();
     window.scrollTo(0, 0);
-  }, [getDayTrending, getPopular, getUpcoming, getWeekTrending]);
+  }, [
+    getDayTVShowTrending,
+    getDayTrending,
+    getPopular,
+    getUpcoming,
+    getWeekTVShowTrending,
+    getWeekTrending,
+  ]);
 
   return (
     <div>
@@ -35,12 +54,14 @@ const Home = () => {
         listTitle="오늘의 영화 TOP 20"
         videoData={dayTrending}
         mode="movie"
+        rank
       />
       <VideoSwiperList
         loading={isWeekTrendingLoading}
         listTitle="이번 주 영화 TOP 20"
         videoData={weekTrending}
         mode="movie"
+        rank
       />
       <VideoSwiperList
         loading={isPopularLoading}
@@ -55,14 +76,18 @@ const Home = () => {
         mode="movie"
       />
       <VideoSwiperList
-        loading={false}
+        loading={isDayTrendingTVShowLoading}
         listTitle="오늘의 TV Show TOP 20"
+        videoData={dayTVShowTrendingList}
         mode="tv"
+        rank
       />
       <VideoSwiperList
-        loading={false}
-        listTitle="이번 주 TV Show TOP"
+        loading={isWeekTrendingTVShowLoading}
+        listTitle="이번 주 TV Show TOP 20"
+        videoData={weekTVShowTrendingList}
         mode="tv"
+        rank
       />
     </div>
   );

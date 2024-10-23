@@ -4,20 +4,16 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import SkeletonVideo from "./SkeletonVideo";
 import VideoItem from "./VideoItem";
+import { VideoDataProps } from "../types";
 // 테스트용 데이터
 // import { videoList } from "../mocks/data/videoList";
-
-interface VideoDataProps {
-  id: number;
-  title: string;
-  poster_path: string;
-}
 
 interface VideoSwiperListProps {
   loading: boolean;
   listTitle: string;
   mode: string;
   videoData?: VideoDataProps[];
+  rank?: boolean;
 }
 
 const VideoSwiperList = ({
@@ -25,6 +21,7 @@ const VideoSwiperList = ({
   listTitle,
   mode,
   videoData,
+  rank,
 }: VideoSwiperListProps) => {
   console.log("컴포넌트", videoData);
   return (
@@ -55,7 +52,8 @@ const VideoSwiperList = ({
                   <VideoItem
                     poster_path={video.poster_path}
                     title={video.title}
-                    rank={index + 1}
+                    rank={rank}
+                    rankNumber={index + 1}
                   />
                 </SwiperSlide>
               ))}

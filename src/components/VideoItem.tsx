@@ -5,10 +5,16 @@ import { GET_POSTER_URI } from "../utils/constants";
 interface VideoItemProps {
   poster_path: string;
   title: string;
-  rank: number;
+  rank?: boolean;
+  rankNumber?: number;
 }
 
-const VideoItem = ({ poster_path, title, rank }: VideoItemProps) => {
+const VideoItem = ({
+  poster_path,
+  title,
+  rank,
+  rankNumber,
+}: VideoItemProps) => {
   return (
     <div className="rounded-xl mb-[80px] overflow-hidden">
       {poster_path ? (
@@ -18,9 +24,11 @@ const VideoItem = ({ poster_path, title, rank }: VideoItemProps) => {
             alt={title}
             className="w-[216px] h-[327px] rounded-xl cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
           />
-          <div className="text-white text-[90px] font-bold italic flex absolute bottom-5">
-            {rank}
-          </div>
+          {rank && (
+            <div className="text-white text-[90px] font-bold italic flex absolute bottom-5">
+              {rankNumber}
+            </div>
+          )}
         </>
       ) : (
         <div className="w-[216px] h-[327px] rounded-xl cursor-default">
