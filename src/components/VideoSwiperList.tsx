@@ -5,6 +5,8 @@ import "swiper/css/pagination";
 import SkeletonVideo from "./SkeletonVideo";
 import VideoItem from "./VideoItem";
 import { VideoDataProps } from "../types";
+import { useNavigate } from "react-router-dom";
+import { useCallback } from "react";
 // 테스트용 데이터
 // import { videoList } from "../mocks/data/videoList";
 
@@ -23,7 +25,15 @@ const VideoSwiperList = ({
   videoData,
   rank,
 }: VideoSwiperListProps) => {
-  console.log("컴포넌트", videoData);
+  const navigate = useNavigate();
+
+  const handleGoDetail = useCallback(
+    (id: number) => {
+      navigate(`/movie/detail/${id}`);
+    },
+    [navigate]
+  );
+
   return (
     <section>
       <div
@@ -54,6 +64,7 @@ const VideoSwiperList = ({
                     title={video.title}
                     rank={rank}
                     rankNumber={index + 1}
+                    onClick={() => handleGoDetail(video.id)}
                   />
                 </SwiperSlide>
               ))}

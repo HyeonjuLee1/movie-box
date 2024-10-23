@@ -7,6 +7,7 @@ interface VideoItemProps {
   title: string;
   rank?: boolean;
   rankNumber?: number;
+  onClick?: () => void;
 }
 
 const VideoItem = ({
@@ -14,9 +15,10 @@ const VideoItem = ({
   title,
   rank,
   rankNumber,
+  onClick,
 }: VideoItemProps) => {
   return (
-    <div className="rounded-xl mb-[80px] overflow-hidden">
+    <div className="rounded-xl mb-[80px] overflow-hidden" onClick={onClick}>
       {poster_path ? (
         <>
           <img
