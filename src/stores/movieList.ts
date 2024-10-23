@@ -1,14 +1,14 @@
 import { create } from 'zustand'
 import  { AxiosError } from 'axios';
 import axiosInst from "../utils/axiosInst";
-import { VideoDataProps } from '../types';
+import { MovieInfoProps, VideoDataProps } from '../types';
 
 interface MovieState {
   dayTrending: VideoDataProps[] ;
   weekTrending: VideoDataProps[] ;
   popular: VideoDataProps[] ;
   upcoming: VideoDataProps[] ;
-  movieInfo : VideoDataProps[] 
+  movieInfo : MovieInfoProps[] 
 
   isDayTrendingLoading: boolean;
   isWeekTrendingLoading: boolean;
@@ -119,10 +119,9 @@ const useMovieStore = create<MovieState>((set) => ({
   // 영화상세 api
   getMovieDetail: async (id:number) => {
     set({ isDetailLoading: true });
-    console.log("상세 api")
     try {
       const data = await getAPI(`/movie/${id}?language=ko`);
-      console.log("movieInfo", data);
+      // console.log("movieInfo", data);
       set({ movieInfo: data});
     } catch (error) {
       console.error('detail data:', error);
