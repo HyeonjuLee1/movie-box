@@ -8,14 +8,19 @@ interface MovieState {
   weekTrending: VideoDataProps[] ;
   popular: VideoDataProps[] ;
   upcoming: VideoDataProps[] ;
+  movieInfo : VideoDataProps[] 
+
   isDayTrendingLoading: boolean;
   isWeekTrendingLoading: boolean;
   isPopularLoading: boolean;
   isUpcomingLoading: boolean;
+  isDetailLoading: boolean;
+
   getDayTrending: () => Promise<void>;
   getWeekTrending: () => Promise<void>;
   getPopular: () => Promise<void>;
   getUpcoming: () => Promise<void>;
+  getMovieDetail: (id:number) => Promise<void>;
 }
 
 const getAPI = async (url: string) => {
@@ -39,10 +44,15 @@ const useMovieStore = create<MovieState>((set) => ({
   weekTrending: [],
   popular: [],
   upcoming: [],
+
+  movieInfo: [],
+
   isDayTrendingLoading: false,
   isWeekTrendingLoading: false,
   isPopularLoading: false,
   isUpcomingLoading: false,
+
+  isDetailLoading: false,
 
   // 오늘 트렌딩 조회
   getDayTrending: async () => {
@@ -105,6 +115,23 @@ const useMovieStore = create<MovieState>((set) => ({
       set({ isUpcomingLoading: false });
     }
   },
+
+  // 영화상세 api
+  getMovieDetail: async (id:number) => {
+    set({ isDetailLoading: true });
+    console.log("상세 api")
+    try {
+      const data = await getAPI(`/movie/${id}?language=ko`);
+      console.log("movieInfo", data);
+      set({ movieInfo: data});
+    } catch (error) {
+      console.error('detail data:', error);
+    } finally {
+      set({ isDetailLoading: false });
+    }
+  },
+
+
 
 }));
 
