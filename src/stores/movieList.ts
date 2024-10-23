@@ -1,26 +1,32 @@
 import { create } from 'zustand'
 import  { AxiosError } from 'axios';
 import axiosInst from "../utils/axiosInst";
-import { MovieInfoProps, VideoDataProps } from '../types';
+import { MovieInfoProps, TrailerProps, VideoDataProps } from '../types';
 
 interface MovieState {
   dayTrending: VideoDataProps[] ;
   weekTrending: VideoDataProps[] ;
   popular: VideoDataProps[] ;
   upcoming: VideoDataProps[] ;
-  movieInfo : MovieInfoProps[] 
+  movieInfo?: MovieInfoProps
+  movieTrailerInfo?: TrailerProps
 
   isDayTrendingLoading: boolean;
   isWeekTrendingLoading: boolean;
   isPopularLoading: boolean;
   isUpcomingLoading: boolean;
+
   isDetailLoading: boolean;
+  isTrailerLoading: boolean;
+
 
   getDayTrending: () => Promise<void>;
   getWeekTrending: () => Promise<void>;
   getPopular: () => Promise<void>;
   getUpcoming: () => Promise<void>;
+
   getMovieDetail: (id:number) => Promise<void>;
+  getTrailer: (id:number) => Promise<void>;
 }
 
 const getAPI = async (url: string) => {
@@ -45,7 +51,8 @@ const useMovieStore = create<MovieState>((set) => ({
   popular: [],
   upcoming: [],
 
-  movieInfo: [],
+  movieInfo: undefined,
+  movieTrailerInfo: undefined,
 
   isDayTrendingLoading: false,
   isWeekTrendingLoading: false,
@@ -53,6 +60,7 @@ const useMovieStore = create<MovieState>((set) => ({
   isUpcomingLoading: false,
 
   isDetailLoading: false,
+  isTrailerLoading: false,
 
   // 오늘 트렌딩 조회
   getDayTrending: async () => {
@@ -129,7 +137,20 @@ const useMovieStore = create<MovieState>((set) => ({
       set({ isDetailLoading: false });
     }
   },
-
+  
+  // 예고편 get api
+  getTrailer: async (id:number) => {
+    set({ isTrailerLoading: true });
+    try {
+      const data = await getAPI(`/movie/${id}/videos?language=ko`);
+      console.log("Trailer", data.data);
+      set({ movieTrailerInfo: data});
+    } catch (error) {
+      console.error('getTrailer:', error);
+    } finally {
+      set({ isTrailerLoading: false });
+    }
+  },
 
 
 }));

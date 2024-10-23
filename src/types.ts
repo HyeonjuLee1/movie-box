@@ -5,7 +5,7 @@ export interface VideoDataProps  {
   poster_path: string;
 }
 
-export interface genreProps  {
+export interface GenreProps  {
   id: number;
   name: string;
 }
@@ -15,7 +15,7 @@ export interface MovieInfoProps  {
   adult:boolean;
   backdrop_path?: string;
   budget?:number;
-  genres?: genreProps[];
+  genres?: GenreProps[];
   original_title?:string;
   title?:string;
   overview?:string;
@@ -25,3 +25,22 @@ export interface MovieInfoProps  {
   tagline?: string;
   vote_average?: string;
 }
+
+export interface TrailerResultProps  {
+  id: number;
+  iso_639_1: string;
+  iso_3166_1: string;
+  key: string;
+  name: string;
+  official:boolean;
+  published_at:string;
+  site:string
+  type:string
+}
+
+
+export interface TrailerProps  {
+  id: number;
+  results: TrailerResultProps[];
+}
+
