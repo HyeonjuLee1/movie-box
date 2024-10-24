@@ -3,8 +3,8 @@ import { faFileImage } from "@fortawesome/free-solid-svg-icons";
 import { GET_POSTER_URI } from "../utils/constants";
 
 interface VideoItemProps {
-  poster_path: string;
-  title: string;
+  poster_path?: string;
+  title?: string;
   rank?: boolean;
   rankNumber?: number;
   onClick?: () => void;

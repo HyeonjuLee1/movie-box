@@ -1,7 +1,7 @@
 
 export interface VideoDataProps  {
   id: number;
-  title: string;
+  title?: string;
   poster_path: string;
 }
 
@@ -25,7 +25,7 @@ export interface MovieInfoProps  {
   title?:string;
   overview?:string;
   runtime?: number;
-  poster_path?: number;
+  poster_path?: string;
   release_date?: string;
   tagline?: string;
   vote_average?: number;
@@ -93,5 +93,20 @@ export interface MovieBackdropsPostersListProps  {
   vote_average: number;
   vote_count: string;
   width: number;
+}
+
+export interface MovieSimilarProps  {
+  id:number;
+  adult:boolean;
+  backdrop_path?: string;
+  genre_ids?: number[];
+  original_language?:string;
+  original_title?:string;
+  overview?:string;
+  poster_path?: string;
+  release_date?: string;
+  title?:string;
+  video?: number;
+  vote_average?: number;
 }
 

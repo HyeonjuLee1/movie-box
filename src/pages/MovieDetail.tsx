@@ -5,21 +5,25 @@ import TrailerModal from "../components/TrailerModal";
 import VideoBigImage from "../components/VideoBigImage";
 import VideoDetailTable from "../components/VideoDetailTable";
 import ImageSwiperList from "../components/ImageSwiperList";
+import VideoSwiperList from "../components/VideoSwiperList";
 
 const MovieDetail = () => {
   const { id } = useParams<{ id: string }>();
   const {
     isDetailLoading,
-    isImagesLoading,
+    isMovieImagesLoading,
+    isMovieSimilarLoading,
     movieInfo,
     movieTrailerInfo,
     movieCrewData,
     movieBackdropsList,
     moviePostersList,
+    similarMovieList,
     getMovieDetail,
     getTrailer,
     getMovieCastList,
     getMovieImages,
+    getSimilarMovieList,
   } = useMovieStore();
   const [openTrailerModal, setOpenTrailerModal] = useState<boolean>(false);
 
@@ -29,10 +33,18 @@ const MovieDetail = () => {
       getTrailer(parseInt(id));
       getMovieCastList(parseInt(id));
       getMovieImages(parseInt(id));
+      getSimilarMovieList(parseInt(id));
     }
 
     window.scrollTo(0, 0);
-  }, [getMovieCastList, getMovieDetail, getMovieImages, getTrailer, id]);
+  }, [
+    getMovieCastList,
+    getMovieDetail,
+    getMovieImages,
+    getSimilarMovieList,
+    getTrailer,
+    id,
+  ]);
 
   const trailerVideoKey = useMemo(() => {
     return movieTrailerInfo?.results.find((r) => r.type === "Trailer")?.key;
@@ -53,8 +65,7 @@ const MovieDetail = () => {
 
   console.log("id", id);
   // console.log("movieInfo screen", movieInfo);
-  console.log("movieBackdropsList", movieBackdropsList);
-  console.log("moviePostersList", moviePostersList);
+  console.log("similarMovieList", similarMovieList);
 
   return (
     <main>
@@ -75,19 +86,26 @@ const MovieDetail = () => {
       <div className="w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
 
       <ImageSwiperList
-        title={"스틸컷"}
-        loading={isImagesLoading}
+        title="스틸컷"
+        loading={isMovieImagesLoading}
         imageData={movieBackdropsList}
       />
       <div className="w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
 
       <ImageSwiperList
         poster
-        title={"포스터"}
-        loading={isImagesLoading}
+        title="포스터"
+        loading={isMovieImagesLoading}
         imageData={moviePostersList}
       />
       <div className="w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
+
+      <VideoSwiperList
+        loading={isMovieSimilarLoading}
+        listTitle="비슷한 영화 추천"
+        videoData={similarMovieList}
+        mode="movie"
+      />
 
       {openTrailerModal && (
         <TrailerModal
