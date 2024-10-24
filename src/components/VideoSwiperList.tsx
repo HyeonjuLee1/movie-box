@@ -4,7 +4,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import SkeletonVideo from "./SkeletonVideo";
 import VideoItem from "./VideoItem";
-import { VideoDataProps } from "../types";
+import { MovieSimilarProps, VideoDataProps } from "../types";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 // 테스트용 데이터
@@ -14,7 +14,7 @@ interface VideoSwiperListProps {
   loading: boolean;
   listTitle: string;
   mode: string;
-  videoData?: VideoDataProps[];
+  videoData?: VideoDataProps[] | MovieSimilarProps[] | undefined;
   rank?: boolean;
 }
 
@@ -33,7 +33,7 @@ const VideoSwiperList = ({
     },
     [navigate]
   );
-
+  console.log("mode", mode);
   return (
     <section>
       <div
