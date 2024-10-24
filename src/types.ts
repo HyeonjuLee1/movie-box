@@ -10,6 +10,11 @@ export interface GenreProps  {
   name: string;
 }
 
+export interface ProductionCountriesProps  {
+  iso_3166_1: string;
+  name: string;
+}
+
 export interface MovieInfoProps  {
   id:number;
   adult:boolean;
@@ -24,6 +29,7 @@ export interface MovieInfoProps  {
   release_date?: string;
   tagline?: string;
   vote_average?: number;
+  production_countries?: ProductionCountriesProps[];
 }
 
 export interface TrailerResultProps  {
