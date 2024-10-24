@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import  { AxiosError } from 'axios';
 import axiosInst from "../utils/axiosInst";
-import { MovieCrewDataProps, MovieInfoProps, TrailerProps, VideoDataProps } from '../types';
+import { MovieBackdropsPostersListProps, MovieCrewDataProps, MovieInfoProps, TrailerProps, VideoDataProps } from '../types';
 
 interface MovieState {
   dayTrending: VideoDataProps[] ;
@@ -11,6 +11,8 @@ interface MovieState {
   movieInfo?: MovieInfoProps
   movieTrailerInfo?: TrailerProps
   movieCrewData?: MovieCrewDataProps
+  movieBackdropsList?: MovieBackdropsPostersListProps[]
+  moviePostersList?: MovieBackdropsPostersListProps[]
 
   isDayTrendingLoading: boolean;
   isWeekTrendingLoading: boolean;
@@ -20,6 +22,7 @@ interface MovieState {
   isDetailLoading: boolean;
   isTrailerLoading: boolean;
   isCrewLoading: boolean;
+  isMovieImagesLoading: boolean;
 
 
   getDayTrending: () => Promise<void>;
@@ -30,6 +33,7 @@ interface MovieState {
   getMovieDetail: (id:number) => Promise<void>;
   getTrailer: (id:number) => Promise<void>;
   getMovieCastList: (id:number) => Promise<void>;
+  getMovieImages: (id:number) => Promise<void>;
 }
 
 const getAPI = async (url: string) => {
@@ -57,6 +61,8 @@ const useMovieStore = create<MovieState>((set) => ({
   movieInfo: undefined,
   movieTrailerInfo: undefined,
   crewData: undefined,
+  movieBackdropsList: undefined,
+  moviePostersList: undefined,
 
   isDayTrendingLoading: false,
   isWeekTrendingLoading: false,
@@ -66,6 +72,7 @@ const useMovieStore = create<MovieState>((set) => ({
   isDetailLoading: false,
   isTrailerLoading: false,
   isCrewLoading: false,
+  isMovieImagesLoading: false,
 
   // 오늘 트렌딩 조회
   getDayTrending: async () => {
@@ -170,6 +177,23 @@ const useMovieStore = create<MovieState>((set) => ({
       set({ isCrewLoading: false });
     }
   },
+
+    // 포스터, 스틸컷 api
+  getMovieImages: async (id:number) => {
+    set({ isMovieImagesLoading: true });
+    try {
+      const data = await getAPI(`/movie/${id}/images?page=1`);
+      console.log("getMovieImages", data);
+      set({ movieBackdropsList: data.backdrops,moviePostersList:data.posters });
+    } catch (error) {
+      console.error('getMovieImages:', error);
+    } finally {
+      set({ isMovieImagesLoading: false });
+    }
+  },
+
+
+  
 
 }));
 

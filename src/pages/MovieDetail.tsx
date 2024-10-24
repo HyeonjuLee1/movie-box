@@ -12,9 +12,12 @@ const MovieDetail = () => {
     movieInfo,
     movieTrailerInfo,
     movieCrewData,
+    movieBackdropsList,
+    moviePostersList,
     getMovieDetail,
     getTrailer,
     getMovieCastList,
+    getMovieImages,
   } = useMovieStore();
   const [openTrailerModal, setOpenTrailerModal] = useState<boolean>(false);
 
@@ -23,8 +26,11 @@ const MovieDetail = () => {
       getMovieDetail(parseInt(id));
       getTrailer(parseInt(id));
       getMovieCastList(parseInt(id));
+      getMovieImages(parseInt(id));
     }
-  }, [getMovieCastList, getMovieDetail, getTrailer, id]);
+
+    window.scrollTo(0, 0);
+  }, [getMovieCastList, getMovieDetail, getMovieImages, getTrailer, id]);
 
   const trailerVideoKey = useMemo(() => {
     return movieTrailerInfo?.results.find((r) => r.type === "Trailer")?.key;
@@ -45,6 +51,8 @@ const MovieDetail = () => {
 
   console.log("id", id);
   // console.log("movieInfo screen", movieInfo);
+  console.log("movieBackdropsList", movieBackdropsList);
+  console.log("moviePostersList", moviePostersList);
 
   return (
     <main>
@@ -61,6 +69,8 @@ const MovieDetail = () => {
         actors={actors}
         movieInfo={movieInfo}
       />
+
+      <div className="w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
 
       {openTrailerModal && (
         <TrailerModal
