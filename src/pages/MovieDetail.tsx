@@ -10,7 +10,6 @@ const MovieDetail = () => {
   const { id } = useParams<{ id: string }>();
   const {
     isDetailLoading,
-    isCrewLoading,
     movieInfo,
     movieTrailerInfo,
     movieCrewData,
@@ -32,8 +31,20 @@ const MovieDetail = () => {
     return movieTrailerInfo?.results.find((r) => r.type === "Trailer")?.key;
   }, [movieTrailerInfo?.results]);
 
+  const directorName = useMemo(() => {
+    return (
+      movieCrewData?.crew.find(
+        (g) => g.job === "Director" && g.department === "Directing"
+      )?.name ?? "-"
+    );
+  }, [movieCrewData]);
+
+  const actors = useMemo(() => {
+    const actorArr = movieCrewData?.cast.slice(0, 3) ?? [];
+    return actorArr.map((g) => g.name).join(", ");
+  }, [movieCrewData]);
+
   console.log("id", id);
-  // console.log("movieInfo screen", movieInfo);
   // console.log("movieInfo screen", movieInfo);
 
   return (
@@ -95,92 +106,91 @@ const MovieDetail = () => {
                   <col style={{ width: 76 }} />
                   <col style={{ width: "auto" }} />
                 </colgroup>
-                <tr>
-                  <th
-                    scope="row"
-                    className="pt-[30px] text-[16px] font-normal text-white text-left align-top"
-                  >
-                    개요
-                  </th>
-                  <td className="pt-[30px] text-[16px] font-normal text-white text-left align-top">
-                    {movieInfo?.production_countries
-                      ? movieInfo?.production_countries[0].name
-                      : ""}
-                    , {`${moment(movieInfo?.release_date).format("YYYY")}`}
-                  </td>
-                </tr>
-                <tr>
-                  <th
-                    scope="row"
-                    className="pt-[30px] text-[16px] font-normal text-white text-left align-top"
-                  >
-                    장르
-                  </th>
-                  <td className="pt-[30px] text-[16px] font-normal text-white text-left align-top">
-                    {" "}
-                    {movieInfo?.genres
-                      ? movieInfo?.genres.map((g) => g.name).join(", ")
-                      : ""}
-                  </td>
-                </tr>
-                <tr>
-                  <th
-                    scope="row"
-                    className="pt-[30px] text-[16px] font-normal text-white text-left align-top"
-                  >
-                    출연
-                  </th>
-                  <td className="pt-[30px] text-[16px] font-normal text-white text-left align-top">
-                    {""}
-                  </td>
-                  {/* <td>{{ actors }}</td> */}
-                </tr>
-                <tr>
-                  <th
-                    scope="row"
-                    className="pt-[30px] text-[16px] font-normal text-white text-left align-top"
-                  >
-                    감독
-                  </th>
-                  <td className="pt-[30px] text-[16px] font-normal text-white text-left align-top">
-                    {" "}
-                    {"DirectorName"}
-                  </td>
-                  {/* <td> {{ DirectorName }}</td> */}
-                </tr>
-                <tr>
-                  <th
-                    scope="row"
-                    className="pt-[30px] text-[16px] font-normal text-white text-left align-top"
-                  >
-                    등급
-                  </th>
-                  <td className="pt-[30px] text-[16px] font-normal text-white text-left align-top">
-                    {movieInfo?.adult ? (
-                      <div className="box-content bg-[#c52b30] p-[8px] w-[60px] h-[60px] rounded-full flex items-center justify-center">
-                        <div className="flex flex-col items-center">
-                          <div className="text-white text-sm flex font-bold justify-center items-center h-[20px]">
-                            청소년
-                          </div>
-                          <div className="text-white text-sm flex font-bold justify-center items-center h-[20px]">
-                            관람불가
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="box-content bg-[#4ba352] p-[8px] w-[60px] h-[60px] rounded-full flex items-center justify-center">
-                        <div className="flex flex-col items-center">
-                          <div className="text-black flex font-bold justify-center items-center h-[20px]">
-                            전체
-                          </div>
-                          <div className="text-black flex font-bold justify-center items-center h-[20px]">
-                            관람가
+                <tbody>
+                  <tr>
+                    <th
+                      scope="row"
+                      className="pt-[30px] text-[16px] font-normal text-white text-left align-top"
+                    >
+                      개요
+                    </th>
+                    <td className="pt-[30px] text-[16px] font-normal text-white text-left align-top">
+                      {movieInfo?.production_countries
+                        ? movieInfo?.production_countries[0].name
+                        : ""}
+                      , {`${moment(movieInfo?.release_date).format("YYYY")}`}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th
+                      scope="row"
+                      className="pt-[30px] text-[16px] font-normal text-white text-left align-top"
+                    >
+                      장르
+                    </th>
+                    <td className="pt-[30px] text-[16px] font-normal text-white text-left align-top">
+                      {" "}
+                      {movieInfo?.genres
+                        ? movieInfo?.genres.map((g) => g.name).join(", ")
+                        : ""}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th
+                      scope="row"
+                      className="pt-[30px] text-[16px] font-normal text-white text-left align-top"
+                    >
+                      출연
+                    </th>
+                    <td className="pt-[30px] text-[16px] font-normal text-white text-left align-top">
+                      {actors}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th
+                      scope="row"
+                      className="pt-[30px] text-[16px] font-normal text-white text-left align-top"
+                    >
+                      감독
+                    </th>
+                    <td className="pt-[30px] text-[16px] font-normal text-white text-left align-top">
+                      {directorName}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th
+                      scope="row"
+                      className="pt-[30px] text-[16px] font-normal text-white text-left align-top"
+                    >
+                      등급
+                    </th>
+                    <td className="pt-[30px] text-[16px] font-normal text-white text-left align-top">
+                      {movieInfo?.adult ? (
+                        <div className="box-content bg-[#c52b30] p-[8px] w-[60px] h-[60px] rounded-full flex items-center justify-center">
+                          <div className="flex flex-col items-center">
+                            <div className="text-white text-sm flex font-bold justify-center items-center h-[20px]">
+                              청소년
+                            </div>
+                            <div className="text-white text-sm flex font-bold justify-center items-center h-[20px]">
+                              관람불가
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    )}
-                  </td>
-                </tr>
+                      ) : (
+                        <div className="box-content bg-[#4ba352] p-[8px] w-[60px] h-[60px] rounded-full flex items-center justify-center">
+                          <div className="flex flex-col items-center">
+                            <div className="text-black flex font-bold justify-center items-center h-[20px]">
+                              전체
+                            </div>
+                            <div className="text-black flex font-bold justify-center items-center h-[20px]">
+                              관람가
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                </tbody>
               </table>
             ) : (
               <div
