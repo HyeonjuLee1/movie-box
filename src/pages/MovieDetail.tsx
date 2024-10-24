@@ -54,6 +54,10 @@ const MovieDetail = () => {
         </div>
       )}
 
+      {isDetailLoading && (
+        <div className="relative w-[1120px] h-[590px] mx-auto bg-cover bg-center rounded-2xl flex items-center justify-center bg-gray-200 overflow-hidden animate-pulse"></div>
+      )}
+
       {openTrailerModal && (
         <TrailerModal
           trailerVideoKey={trailerVideoKey}
