@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import  { AxiosError } from 'axios';
 import axiosInst from "../utils/axiosInst";
-import { MovieInfoProps, TrailerProps, VideoDataProps } from '../types';
+import { MovieCrewDataProps, MovieInfoProps, TrailerProps, VideoDataProps } from '../types';
 
 interface MovieState {
   dayTrending: VideoDataProps[] ;
@@ -10,6 +10,7 @@ interface MovieState {
   upcoming: VideoDataProps[] ;
   movieInfo?: MovieInfoProps
   movieTrailerInfo?: TrailerProps
+  movieCrewData?: MovieCrewDataProps
 
   isDayTrendingLoading: boolean;
   isWeekTrendingLoading: boolean;
@@ -18,6 +19,7 @@ interface MovieState {
 
   isDetailLoading: boolean;
   isTrailerLoading: boolean;
+  isCrewLoading: boolean;
 
 
   getDayTrending: () => Promise<void>;
@@ -27,6 +29,7 @@ interface MovieState {
 
   getMovieDetail: (id:number) => Promise<void>;
   getTrailer: (id:number) => Promise<void>;
+  getMovieCastList: (id:number) => Promise<void>;
 }
 
 const getAPI = async (url: string) => {
@@ -53,6 +56,7 @@ const useMovieStore = create<MovieState>((set) => ({
 
   movieInfo: undefined,
   movieTrailerInfo: undefined,
+  crewData: undefined,
 
   isDayTrendingLoading: false,
   isWeekTrendingLoading: false,
@@ -61,6 +65,7 @@ const useMovieStore = create<MovieState>((set) => ({
 
   isDetailLoading: false,
   isTrailerLoading: false,
+  isCrewLoading: false,
 
   // 오늘 트렌딩 조회
   getDayTrending: async () => {
@@ -152,6 +157,19 @@ const useMovieStore = create<MovieState>((set) => ({
     }
   },
 
+  // 영화 출연, 감독 리스트 api
+  getMovieCastList: async (id:number) => {
+    set({ isCrewLoading: true });
+    try {
+      const data = await getAPI(`/movie/${id}/credits?language=ko`);
+      console.log("crewData", data);
+      set({ movieCrewData: data});
+    } catch (error) {
+      console.error('getMovieCastList:', error);
+    } finally {
+      set({ isCrewLoading: false });
+    }
+  },
 
 }));
 

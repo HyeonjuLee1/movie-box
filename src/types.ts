@@ -50,3 +50,38 @@ export interface TrailerProps  {
   results: TrailerResultProps[];
 }
 
+export interface CastProps  {
+  id: number;
+  adult: boolean;
+  cast_id: number;
+  character: string;
+  credit_id: string;
+  gender: number;
+  known_for_department: string;
+  name: string;
+  order: number;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+}
+
+export interface CrewProps  {
+  id: number;
+  adult: boolean;
+  credit_id: string ;
+  department: string;
+  gender: number;
+  job: string;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+}
+
+export interface MovieCrewDataProps  {
+  id: number;
+  cast: CastProps[];
+  crew: CrewProps[];
+}
+

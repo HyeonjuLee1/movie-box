@@ -10,10 +10,13 @@ const MovieDetail = () => {
   const { id } = useParams<{ id: string }>();
   const {
     isDetailLoading,
+    isCrewLoading,
     movieInfo,
     movieTrailerInfo,
+    movieCrewData,
     getMovieDetail,
     getTrailer,
+    getMovieCastList,
   } = useMovieStore();
   const [openTrailerModal, setOpenTrailerModal] = useState<boolean>(false);
 
@@ -21,15 +24,17 @@ const MovieDetail = () => {
     if (id) {
       getMovieDetail(parseInt(id));
       getTrailer(parseInt(id));
+      getMovieCastList(parseInt(id));
     }
-  }, [getMovieDetail, getTrailer, id]);
+  }, [getMovieCastList, getMovieDetail, getTrailer, id]);
 
   const trailerVideoKey = useMemo(() => {
     return movieTrailerInfo?.results.find((r) => r.type === "Trailer")?.key;
   }, [movieTrailerInfo?.results]);
 
   console.log("id", id);
-  console.log("movieInfo screen", movieInfo);
+  // console.log("movieInfo screen", movieInfo);
+  // console.log("movieInfo screen", movieInfo);
 
   return (
     <main>
