@@ -4,16 +4,17 @@ import axiosInst from "../utils/axiosInst";
 import { MovieBackdropsPostersListProps, MovieCrewDataProps, MovieInfoProps, MovieSimilarProps, TrailerProps, VideoDataProps } from '../types';
 
 interface MovieState {
-  dayTrending: VideoDataProps[] ;
-  weekTrending: VideoDataProps[] ;
-  popular: VideoDataProps[] ;
-  upcoming: VideoDataProps[] ;
+  dayTrending: VideoDataProps[];
+  weekTrending: VideoDataProps[];
+  popular: VideoDataProps[];
+  upcoming: VideoDataProps[];
   movieInfo?: MovieInfoProps
   movieTrailerInfo?: TrailerProps
   movieCrewData?: MovieCrewDataProps
   movieBackdropsList?: MovieBackdropsPostersListProps[]
   moviePostersList?: MovieBackdropsPostersListProps[]
   similarMovieList?: MovieSimilarProps[]
+  foundMovie?:VideoDataProps[];
 
   isDayTrendingLoading: boolean;
   isWeekTrendingLoading: boolean;
@@ -25,7 +26,7 @@ interface MovieState {
   isCrewLoading: boolean;
   isMovieImagesLoading: boolean;
   isMovieSimilarLoading: boolean;
-
+  isSearchLoading: boolean;
 
   getDayTrending: () => Promise<void>;
   getWeekTrending: () => Promise<void>;
@@ -37,6 +38,7 @@ interface MovieState {
   getMovieCastList: (id:number) => Promise<void>;
   getMovieImages: (id:number) => Promise<void>;
   getSimilarMovieList: (id:number) => Promise<void>;
+  getSearchMovie: (searchkey:string) => Promise<void>;
 }
 
 const getAPI = async (url: string) => {
@@ -67,6 +69,7 @@ const useMovieStore = create<MovieState>((set) => ({
   movieBackdropsList: undefined,
   moviePostersList: undefined,
   similarMovieList: [],
+  foundMovie: [],
 
   isDayTrendingLoading: false,
   isWeekTrendingLoading: false,
@@ -78,6 +81,7 @@ const useMovieStore = create<MovieState>((set) => ({
   isCrewLoading: false,
   isMovieImagesLoading: false,
   isMovieSimilarLoading: false,
+  isSearchLoading: false,
 
   // 오늘 트렌딩 조회
   getDayTrending: async () => {
@@ -210,6 +214,22 @@ const useMovieStore = create<MovieState>((set) => ({
       set({ isMovieSimilarLoading: false });
     }
   },
+
+  // 검색 api
+  getSearchMovie: async (searchkey:string) => {
+    set({ isSearchLoading: true });
+    try {
+      const data = await getAPI(`/search/multi?query=${searchkey}&include_adult=true&language=ko&page=1`);
+      console.log("getSearchMovie", data);
+      set({ foundMovie: data.results });
+    } catch (error) {
+      console.error('getSearchMovie:', error);
+    } finally {
+      set({ isSearchLoading: false });
+    }
+  },
+
+
 
 
 }));
