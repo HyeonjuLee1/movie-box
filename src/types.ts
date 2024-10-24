@@ -23,7 +23,7 @@ export interface MovieInfoProps  {
   poster_path?: number;
   release_date?: string;
   tagline?: string;
-  vote_average?: string;
+  vote_average?: number;
 }
 
 export interface TrailerResultProps  {
