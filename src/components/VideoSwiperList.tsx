@@ -33,7 +33,7 @@ const VideoSwiperList = ({
     },
     [navigate]
   );
-
+  console.log("mode", mode);
   return (
     <section>
       <div

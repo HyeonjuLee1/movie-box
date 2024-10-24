@@ -4,11 +4,13 @@ import { useEffect, useMemo, useState } from "react";
 import TrailerModal from "../components/TrailerModal";
 import VideoBigImage from "../components/VideoBigImage";
 import VideoDetailTable from "../components/VideoDetailTable";
+import ImageSwiperList from "../components/ImageSwiperList";
 
 const MovieDetail = () => {
   const { id } = useParams<{ id: string }>();
   const {
     isDetailLoading,
+    isImagesLoading,
     movieInfo,
     movieTrailerInfo,
     movieCrewData,
@@ -70,6 +72,21 @@ const MovieDetail = () => {
         movieInfo={movieInfo}
       />
 
+      <div className="w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
+
+      <ImageSwiperList
+        title={"스틸컷"}
+        loading={isImagesLoading}
+        imageData={movieBackdropsList}
+      />
+      <div className="w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
+
+      <ImageSwiperList
+        poster
+        title={"포스터"}
+        loading={isImagesLoading}
+        imageData={moviePostersList}
+      />
       <div className="w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
 
       {openTrailerModal && (
