@@ -7,6 +7,7 @@ export default {
         primary: "#1b1b1b",
         "primary-light": "#232323",
         "text-primary": "#FFFFFF",
+        secondary: "#a5a5a5",
       },
     },
   },
