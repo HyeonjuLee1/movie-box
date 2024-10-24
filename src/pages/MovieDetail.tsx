@@ -29,11 +29,12 @@ const MovieDetail = () => {
 
   useEffect(() => {
     if (id) {
-      getMovieDetail(parseInt(id));
-      getTrailer(parseInt(id));
-      getMovieCastList(parseInt(id));
-      getMovieImages(parseInt(id));
-      getSimilarMovieList(parseInt(id));
+      const numberId = parseInt(id);
+      getMovieDetail(numberId);
+      getTrailer(numberId);
+      getMovieCastList(numberId);
+      getMovieImages(numberId);
+      getSimilarMovieList(numberId);
     }
 
     window.scrollTo(0, 0);
@@ -62,10 +63,6 @@ const MovieDetail = () => {
     const actorArr = movieCrewData?.cast.slice(0, 3) ?? [];
     return actorArr.map((g) => g.name).join(", ");
   }, [movieCrewData]);
-
-  console.log("id", id);
-  // console.log("movieInfo screen", movieInfo);
-  console.log("similarMovieList", similarMovieList);
 
   return (
     <main>

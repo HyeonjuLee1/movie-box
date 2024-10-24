@@ -21,7 +21,6 @@ interface VideoSwiperListProps {
 const VideoSwiperList = ({
   loading,
   listTitle,
-  mode,
   videoData,
   rank,
 }: VideoSwiperListProps) => {
@@ -29,11 +28,17 @@ const VideoSwiperList = ({
 
   const handleGoDetail = useCallback(
     (id: number) => {
+      // 일단 영화만
+      // if (mode === "tv") {
+      //   navigate(`/tv/detail/${id}`);
+      // } else {
+
       navigate(`/movie/detail/${id}`);
+      // }
     },
     [navigate]
   );
-  console.log("mode", mode);
+
   return (
     <section>
       <div

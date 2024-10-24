@@ -206,7 +206,7 @@ const useMovieStore = create<MovieState>((set) => ({
     set({ isMovieSimilarLoading: true });
     try {
       const data = await getAPI(`/movie/${id}/similar?language=ko&page=1`);
-      console.log("getSimilarMovieList", data);
+      // console.log("getSimilarMovieList", data);
       set({ similarMovieList: data?.results });
     } catch (error) {
       console.error('getSimilarMovieList:', error);
@@ -220,7 +220,7 @@ const useMovieStore = create<MovieState>((set) => ({
     set({ isSearchLoading: true });
     try {
       const data = await getAPI(`/search/multi?query=${searchkey}&include_adult=true&language=ko&page=1`);
-      console.log("getSearchMovie", data);
+      // console.log("getSearchMovie", data);
       set({ foundMovie: data.results });
     } catch (error) {
       console.error('getSearchMovie:', error);

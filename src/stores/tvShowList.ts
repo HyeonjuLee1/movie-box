@@ -6,13 +6,16 @@ import { VideoDataProps } from '../types';
 interface TVShowState {
   dayTVShowTrendingList: VideoDataProps[] ;
   weekTVShowTrendingList: VideoDataProps[] ;
+  tvShowInfo?: VideoDataProps ;
 
   isDayTrendingTVShowLoading: boolean;
   isWeekTrendingTVShowLoading: boolean;
+  isTVShowDetailLoading: boolean;
 
 
   getDayTVShowTrending: () => Promise<void>;
   getWeekTVShowTrending: () => Promise<void>;
+  getTVShowDetail: (id:number) => Promise<void>;
 
 }
 
@@ -35,9 +38,11 @@ const getAPI = async (url: string) => {
 const useTVShowStore = create<TVShowState>((set) => ({
   dayTVShowTrendingList: [],
   weekTVShowTrendingList: [],
+  tvShowInfo: undefined,
 
   isDayTrendingTVShowLoading: false,
   isWeekTrendingTVShowLoading: false,
+  isTVShowDetailLoading: false,
 
   // 오늘 TV 트렌딩 조회
   getDayTVShowTrending: async () => {
@@ -67,7 +72,21 @@ const useTVShowStore = create<TVShowState>((set) => ({
     }
   },
 
-  
+    // TVshow 상세 api
+  getTVShowDetail: async (id:number) => {
+    set({ isTVShowDetailLoading: true });
+    try {
+      const data = await getAPI(`/tv/${id}?language=ko`);
+       console.log("getTVShowDetail", data);
+      set({ tvShowInfo: data });
+    } catch (error) {
+      console.error('getTVShowDetail Error:', error);
+    } finally {
+      set({ isTVShowDetailLoading: false });
+    }
+  },
+
+ 
 
 
 }));
