@@ -2,9 +2,10 @@ import { useParams } from "react-router-dom";
 import useMovieStore from "../stores/movieList";
 import { useEffect, useMemo, useState } from "react";
 import { GET_BACKPOSTER_URI } from "../utils/constants";
-import { faCirclePlay, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlay, faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TrailerModal from "../components/TrailerModal";
+import moment from "moment";
 
 const MovieDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -50,6 +51,37 @@ const MovieDetail = () => {
                 className="flex text-white text-[50px] justify-center items-center"
               />
             </button>
+
+            <div className="absolute flex flex-col z-[40px] left-[20px] bottom-[40px] ml-[20px]">
+              <div className="flex mb-[24px]">
+                <span className="max-w-[760px] text-[16px] text-[#a5a5a5] leading-[24px] break-all">
+                  {moment(movieInfo?.release_date).format("YYYY.MM.DD")}
+                </span>
+
+                <div className="inline-block w-[3px] h-[3px] mt-[12px] mx-[8px] rounded-full bg-[#a5a5a5] align-middle"></div>
+                <span className="max-w-[760px] text-[16px] text-[#a5a5a5] leading-[24px] break-all">{`${movieInfo?.runtime}분`}</span>
+
+                <div className="inline-block w-[3px] h-[3px] mt-[12px] mx-[8px] rounded-full bg-[#a5a5a5] align-middle"></div>
+                {movieInfo?.genres && (
+                  <span className="max-w-[760px] text-[16px] text-[#a5a5a5] leading-[24px] break-all">
+                    {movieInfo?.genres.map((g) => g.name).join(", ")}
+                  </span>
+                )}
+
+                <FontAwesomeIcon
+                  icon={faStar}
+                  className="flex items-center mx-2 text-red-600"
+                />
+
+                <span className="max-w-[760px] text-[16px] text-[#a5a5a5] leading-[24px] break-all">
+                  {`평점 : ${(movieInfo?.vote_average ?? 0).toFixed(1)}`}
+                </span>
+              </div>
+
+              <span className="max-w-[760px] text-[16px] text-[#a5a5a5] leading-[24px] break-all">
+                {movieInfo?.tagline}
+              </span>
+            </div>
           </div>
         </div>
       )}
