@@ -79,7 +79,7 @@ const VideoDetailTable = ({
                   </th>
                   <td className="pt-[30px] text-[16px] font-normal text-white text-left align-top">
                     {movieInfo?.production_countries
-                      ? movieInfo?.production_countries[0].name
+                      ? movieInfo?.production_countries[0]?.name
                       : ""}
                     , {`${moment(movieInfo?.release_date).format("YYYY")}`}
                   </td>
