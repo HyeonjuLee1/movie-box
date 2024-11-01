@@ -27,8 +27,8 @@ npm install
 
 <br />
 
-프로젝트 실행 start
+개발 서버 실행
 
 ```sh
-npm run start
+npm run dev
 ```
