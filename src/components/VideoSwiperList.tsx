@@ -57,7 +57,7 @@ const VideoSwiperList = ({
         >
           {loading &&
             Array.from({ length: 5 }).map((_, index) => (
-              <SkeletonVideo index={index} />
+              <SkeletonVideo key={`item-${index}`} />
             ))}
 
           {!loading && videoData && (

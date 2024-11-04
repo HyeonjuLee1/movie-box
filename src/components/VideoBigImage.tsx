@@ -49,11 +49,12 @@ const VideoBigImage = ({
                   {movieInfo?.genres.map((g) => g.name).join(", ")}
                 </span>
               )}
-
-              <FontAwesomeIcon
-                icon={faStar}
-                className="flex items-center mx-2 text-red-600"
-              />
+              <div className="flex items-center">
+                <FontAwesomeIcon
+                  icon={faStar}
+                  className="flex items-center mx-2 text-red-600"
+                />
+              </div>
 
               <span className="max-w-[760px] text-[16px] text-secondary leading-[24px] break-all">
                 {`평점 : ${(movieInfo?.vote_average ?? 0).toFixed(1)}`}
