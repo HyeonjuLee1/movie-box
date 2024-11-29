@@ -21,19 +21,20 @@ const VideoSwiperList = ({
   listTitle,
   videoData,
   rank,
+  mode,
 }: VideoSwiperListProps) => {
   const navigate = useNavigate();
 
   const handleGoDetail = useCallback(
     (id: number) => {
       // 일단 영화만
-      // if (mode === "tv") {
-      //   navigate(`/tv/detail/${id}`);
-      // } else {
-      // navigate(`/movie/detail/${id}`);
-      // }
+      if (mode === "tv") {
+        navigate(`/tv/detail/${id}`);
+      } else {
+        navigate(`/movie/detail/${id}`);
+      }
     },
-    [navigate]
+    [mode, navigate]
   );
 
   return (
