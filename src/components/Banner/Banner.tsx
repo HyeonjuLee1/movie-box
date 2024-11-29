@@ -36,7 +36,7 @@ const Banner = () => {
         className="flex w-full min-w-full mb-[50px] min-h-[555px]"
         loop={true}
         spaceBetween={30}
-        slidesPerView="auto"
+        slidesPerView={1}
         centeredSlides={true}
         pagination={{
           el: ".swiper-pagination",
@@ -48,19 +48,28 @@ const Banner = () => {
           disableOnInteraction: false,
         }}
         modules={[Pagination, Navigation, Autoplay]}
+        breakpoints={{
+          1200: {
+            slidesPerView: "auto",
+          },
+        }}
       >
         {banners.map((banner) => (
-          <SwiperSlide key={`banner-${banner.bannerNo}`}>
+          <SwiperSlide
+            key={`banner-${banner.bannerNo}`}
+            className="xl:w-fit w-full min-w-full max-xl:min-w-[auto] xl:min-w-[1120px]"
+            style={{ width: "fit-content" }}
+          >
             <div>
               <img
                 src={banner.imageUrl}
                 alt={banner.alt}
-                className="rounded-2xl relative min-w-[1120px] h-[508px]"
+                className="rounded-2xl relative xl:max-w-[1120px] h-[508px] max-md:h-[400px] max-sm:h-[320px]"
               />
               <img
                 src={banner.textImageUrl}
                 alt={banner.alt}
-                className="rounded-2xl absolute top-0 left-0 min-w-[1120px] h-[508px]"
+                className="rounded-2xl absolute top-0 left-0 xl:max-w-[1120px] h-[508px] max-md:h-[400px] max-sm:h-[320px]"
               />
             </div>
           </SwiperSlide>

@@ -22,9 +22,12 @@ const VideoItem = ({
       {poster_path ? (
         <>
           <img
+            // mock데이터 사용하는 경우
+            // src={poster_path}
             src={`${GET_POSTER_URI}${poster_path}`}
             alt={title}
-            className="w-[216px] h-[327px] rounded-xl cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
+            // className="w-full sm:w-[216px] h-auto sm:h-[327px] rounded-xl cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
+            className="flex justify-center items-center w-[216px] h-[327px] rounded-xl cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
           />
           {rank && (
             <div className="text-white text-[90px] font-bold italic flex absolute bottom-5">
@@ -34,7 +37,7 @@ const VideoItem = ({
         </>
       ) : (
         <div className="w-[216px] h-[327px] rounded-xl cursor-default">
-          <div className="flex h-full flex-col justify-center">
+          <div className="flex h-full flex-col justify-center items-center">
             <FontAwesomeIcon
               icon={faFileImage}
               className="text-white text-[90px] mb-10"

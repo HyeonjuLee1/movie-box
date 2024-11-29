@@ -1,12 +1,10 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import SkeletonVideo from "./SkeletonVideo";
 import VideoItem from "./VideoItem";
 import { MovieSimilarProps, VideoDataProps } from "../types";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
+import LoadingSwiperList from "./LoadingSwiperList";
 // 테스트용 데이터
 // import { videoList } from "../mocks/data/videoList";
 
@@ -32,8 +30,7 @@ const VideoSwiperList = ({
       // if (mode === "tv") {
       //   navigate(`/tv/detail/${id}`);
       // } else {
-
-      navigate(`/movie/detail/${id}`);
+      // navigate(`/movie/detail/${id}`);
       // }
     },
     [navigate]
@@ -42,7 +39,7 @@ const VideoSwiperList = ({
   return (
     <section>
       <div
-        className={`w-[1120px] min-h-[383px] mx-auto  ${
+        className={`w-full max-w-[1120px] min-h-[383px] mx-auto  ${
           loading ? "mb-[80px]" : "mb-0"
         }`}
       >
@@ -55,15 +52,37 @@ const VideoSwiperList = ({
             loading && "justify-between"
           }`}
         >
-          {loading &&
-            Array.from({ length: 5 }).map((_, index) => (
-              <SkeletonVideo key={`item-${index}`} />
-            ))}
+          {loading && <LoadingSwiperList />}
 
           {!loading && videoData && (
-            <Swiper slidesPerView={5} spaceBetween={10}>
+            <Swiper
+              spaceBetween={10}
+              slidesPerView={5}
+              breakpoints={{
+                1200: {
+                  slidesPerView: 5,
+                  spaceBetween: 10,
+                },
+                1024: {
+                  slidesPerView: 4,
+                  spaceBetween: 10,
+                },
+                768: {
+                  slidesPerView: 3,
+                  spaceBetween: 16,
+                },
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 12,
+                },
+                0: {
+                  slidesPerView: 1,
+                  spaceBetween: 8,
+                },
+              }}
+            >
               {videoData.map((video, index) => (
-                <SwiperSlide key={video.id}>
+                <SwiperSlide key={video.id} className="flex justify-center">
                   <VideoItem
                     poster_path={video.poster_path}
                     title={video.title}

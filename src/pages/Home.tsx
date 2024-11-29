@@ -49,6 +49,8 @@ const Home = () => {
         loading={isDayTrendingLoading}
         listTitle="오늘의 영화 TOP 20"
         videoData={dayTrending}
+        // mock데이터 사용시
+        // videoData={videoList}
         mode="movie"
         rank
       />
