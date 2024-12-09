@@ -1,15 +1,17 @@
 #
 
 Vue.js로 구현했던 영화 정보 제공 사이트를 React.js로 마이그레이션하여 재구현하였습니다.
+
 https://hjmovie-box-app.netlify.app/
 
 주요 프레임워크 및 라이브러리: React.js, Typescript, Zustand, Tailwind CSS
+
 배포: Netlify
 
 디자인
 
 - OTT플랫폼 중 하나인 Wavve(웨이브)를 따라했습니다.
-- 반응형 디자인이 적용하였습니다.
+- 반응형 디자인을 적용하였습니다.
 - 사용자 경험 개선을 위해 Skeleton UI 적용하였습니다.
 
 API
