@@ -72,7 +72,7 @@ const MovieDetail = () => {
         onOpenModal={() => setOpenTrailerModal(true)}
         mode="movie"
       />
-      <div className="w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
+      <div className="w-full max-w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
 
       <VideoDetailTable
         isDetailLoading={isDetailLoading}
@@ -82,14 +82,14 @@ const MovieDetail = () => {
         mode="movie"
       />
 
-      <div className="w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
+      <div className="w-full max-w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
 
       <ImageSwiperList
         title="스틸컷"
         loading={isMovieImagesLoading}
         imageData={movieBackdropsList}
       />
-      <div className="w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
+      <div className="w-full max-w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
 
       <ImageSwiperList
         poster
@@ -97,7 +97,7 @@ const MovieDetail = () => {
         loading={isMovieImagesLoading}
         imageData={moviePostersList}
       />
-      <div className="w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
+      <div className="w-full max-w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
 
       <VideoSwiperList
         loading={isMovieSimilarLoading}

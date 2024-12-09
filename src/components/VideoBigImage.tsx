@@ -95,7 +95,7 @@ const VideoBigImage = ({
     <section className="relative h-[590px]">
       {!loading && videoInfo ? (
         <div
-          className="relative w-[1120px] h-[590px] mx-auto bg-cover bg-center rounded-2xl flex items-center justify-center"
+          className="relative w-full max-w-[1120px] h-[590px] mx-auto bg-cover bg-center rounded-2xl flex items-center justify-center"
           style={{
             backgroundImage: `linear-gradient(to bottom left,rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 1)), url(${
               mode === "movie" ? GET_BACKPOSTER_URI : GET_TVBACKPOSTER_URI

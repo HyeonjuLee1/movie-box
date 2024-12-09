@@ -19,7 +19,7 @@ const ImageSwiperList = ({
 }: ImageSwiperListProps) => {
   return (
     <section className="mt-[50px]">
-      <div className="w-[1120px] min-h-[383px] mx-auto mb-[80px]">
+      <div className="w-full max-w-[1120px] min-h-[383px] mx-auto mb-[80px]">
         <div className="flex justify-between mb-[20px]">
           <span className="text-white text-[24px]">{title}</span>
         </div>
@@ -33,6 +33,41 @@ const ImageSwiperList = ({
             <Swiper
               slidesPerView={poster ? 5 : 2}
               spaceBetween={poster ? 10 : 20}
+              breakpoints={
+                poster
+                  ? {
+                      1200: {
+                        slidesPerView: 5,
+                        spaceBetween: 10,
+                      },
+                      1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 10,
+                      },
+                      768: {
+                        slidesPerView: 3,
+                        spaceBetween: 16,
+                      },
+                      640: {
+                        slidesPerView: 2,
+                        spaceBetween: 12,
+                      },
+                      0: {
+                        slidesPerView: 1,
+                        spaceBetween: 8,
+                      },
+                    }
+                  : {
+                      1200: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                      },
+                      0: {
+                        slidesPerView: 1,
+                        spaceBetween: 10,
+                      },
+                    }
+              }
             >
               {imageData.map((item, index) => (
                 <SwiperSlide key={`item-${index}`}>

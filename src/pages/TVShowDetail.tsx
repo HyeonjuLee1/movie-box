@@ -64,7 +64,7 @@ const TVShowDetail = () => {
         onOpenModal={() => setOpenTrailerModal(true)}
         mode="tv"
       />
-      <div className="w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
+      <div className="w-full max-w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
 
       <VideoDetailTable
         isDetailLoading={isTVShowDetailLoading}
@@ -72,14 +72,14 @@ const TVShowDetail = () => {
         videoInfo={tvShowInfo}
         mode="tv"
       />
-      <div className="w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
+      <div className="w-full max-w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
 
       <ImageSwiperList
         title="스틸컷"
         loading={isTVShowImagesLoading}
         imageData={tvShowBackdropsList}
       />
-      <div className="w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
+      <div className="w-full max-w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
 
       <ImageSwiperList
         poster
@@ -87,7 +87,7 @@ const TVShowDetail = () => {
         loading={isTVShowImagesLoading}
         imageData={tvShowPostersList}
       />
-      <div className="w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
+      <div className="w-full max-w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
 
       <VideoSwiperList
         loading={isTVShowSimilarLoading}
