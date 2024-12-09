@@ -1,19 +1,29 @@
 import { GET_POSTER_URI } from "../utils/constants";
-import { MovieInfoProps } from "../types";
+import { MovieInfoProps, TvShowInfoProps } from "../types";
 import moment from "moment";
 
-interface VideoDetailTableProps {
-  isDetailLoading: boolean;
-  directorName?: string;
-  actors?: string;
-  movieInfo?: MovieInfoProps;
-}
+type VideoDetailTableProps =
+  | {
+      isDetailLoading: boolean;
+      directorName?: string;
+      actors?: string;
+      videoInfo?: MovieInfoProps;
+      mode: "movie";
+    }
+  | {
+      isDetailLoading: boolean;
+      directorName?: string;
+      actors?: string;
+      videoInfo?: TvShowInfoProps;
+      mode: "tv";
+    };
 
 const VideoDetailTable = ({
   isDetailLoading,
   directorName,
   actors,
-  movieInfo,
+  videoInfo,
+  mode,
 }: VideoDetailTableProps) => {
   return (
     <div className="flex justify-center">
@@ -29,8 +39,8 @@ const VideoDetailTable = ({
           {!isDetailLoading && (
             <img
               className="max-w-full max-h-full"
-              src={`${GET_POSTER_URI}${movieInfo?.poster_path}`}
-              alt={movieInfo?.title}
+              src={`${GET_POSTER_URI}${videoInfo?.poster_path}`}
+              alt={`${mode === "movie" ? videoInfo?.title : videoInfo?.name}`}
             />
           )}
         </div>
@@ -45,7 +55,9 @@ const VideoDetailTable = ({
             style={{ width: !isDetailLoading ? "200px" : "auto" }}
           >
             <span className="text-white">
-              {isDetailLoading ? "" : movieInfo?.title}
+              {isDetailLoading
+                ? ""
+                : `${mode === "movie" ? videoInfo?.title : videoInfo?.name}`}
             </span>
           </div>
 
@@ -58,7 +70,7 @@ const VideoDetailTable = ({
             style={{ height: isDetailLoading ? "100px" : "auto" }}
           >
             <p className="my-[16px] text-[16px] text-secondary leading-[24px] break-all max-w-[900px]">
-              {isDetailLoading ? "" : movieInfo?.overview}
+              {isDetailLoading ? "" : videoInfo?.overview}
             </p>
           </div>
 
@@ -78,10 +90,15 @@ const VideoDetailTable = ({
                     개요
                   </th>
                   <td className="pt-[30px] text-[16px] font-normal text-white text-left align-top">
-                    {movieInfo?.production_countries
-                      ? movieInfo?.production_countries[0]?.name
+                    {videoInfo?.production_countries
+                      ? videoInfo?.production_countries[0]?.name
                       : ""}
-                    , {`${moment(movieInfo?.release_date).format("YYYY")}`}
+                    ,{" "}
+                    {`${
+                      mode === "movie"
+                        ? moment(videoInfo?.release_date).format("YYYY")
+                        : ""
+                    }`}
                   </td>
                 </tr>
                 <tr>
@@ -92,9 +109,8 @@ const VideoDetailTable = ({
                     장르
                   </th>
                   <td className="pt-[30px] text-[16px] font-normal text-white text-left align-top">
-                    {" "}
-                    {movieInfo?.genres
-                      ? movieInfo?.genres.map((g) => g.name).join(", ")
+                    {videoInfo?.genres
+                      ? videoInfo?.genres.map((g) => g.name).join(", ")
                       : ""}
                   </td>
                 </tr>
@@ -109,17 +125,19 @@ const VideoDetailTable = ({
                     {actors}
                   </td>
                 </tr>
-                <tr>
-                  <th
-                    scope="row"
-                    className="pt-[30px] text-[16px] font-normal text-white text-left align-top"
-                  >
-                    감독
-                  </th>
-                  <td className="pt-[30px] text-[16px] font-normal text-white text-left align-top">
-                    {directorName}
-                  </td>
-                </tr>
+                {mode === "movie" && (
+                  <tr>
+                    <th
+                      scope="row"
+                      className="pt-[30px] text-[16px] font-normal text-white text-left align-top"
+                    >
+                      감독
+                    </th>
+                    <td className="pt-[30px] text-[16px] font-normal text-white text-left align-top">
+                      {directorName}
+                    </td>
+                  </tr>
+                )}
                 <tr>
                   <th
                     scope="row"
@@ -128,7 +146,7 @@ const VideoDetailTable = ({
                     등급
                   </th>
                   <td className="pt-[30px] text-[16px] font-normal text-white text-left align-top">
-                    {movieInfo?.adult ? (
+                    {videoInfo?.adult ? (
                       <div className="box-content bg-[#c52b30] p-[8px] w-[60px] h-[60px] rounded-full flex items-center justify-center">
                         <div className="flex flex-col items-center">
                           <div className="text-white text-sm flex font-bold justify-center items-center h-[20px]">

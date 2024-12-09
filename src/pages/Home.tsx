@@ -2,8 +2,7 @@ import { useEffect } from "react";
 import Banner from "../components/Banner/Banner";
 import VideoSwiperList from "../components/VideoSwiperList";
 import useMovieStore from "../stores/movieList";
-// 일단 영화만 노출
-// import useTVShowStore from "../stores/tvShowList";
+import useTVShowStore from "../stores/tvShowList";
 
 const Home = () => {
   const {
@@ -21,26 +20,31 @@ const Home = () => {
     getUpcoming,
   } = useMovieStore();
 
-  // 일단 영화만 노출
-  // const {
-  //   dayTVShowTrendingList,
-  //   weekTVShowTrendingList,
-  //   isDayTrendingTVShowLoading,
-  //   isWeekTrendingTVShowLoading,
-  //   getDayTVShowTrending,
-  //   getWeekTVShowTrending,
-  // } = useTVShowStore();
+  const {
+    dayTVShowTrendingList,
+    weekTVShowTrendingList,
+    isDayTrendingTVShowLoading,
+    isWeekTrendingTVShowLoading,
+    getDayTVShowTrending,
+    getWeekTVShowTrending,
+  } = useTVShowStore();
 
   useEffect(() => {
     getDayTrending();
     getWeekTrending();
     getPopular();
     getUpcoming();
-    // 일단 영화만 노출
-    // getDayTVShowTrending();
-    // getWeekTVShowTrending();
+    getDayTVShowTrending();
+    getWeekTVShowTrending();
     window.scrollTo(0, 0);
-  }, [getDayTrending, getPopular, getUpcoming, getWeekTrending]);
+  }, [
+    getDayTVShowTrending,
+    getDayTrending,
+    getPopular,
+    getUpcoming,
+    getWeekTVShowTrending,
+    getWeekTrending,
+  ]);
 
   return (
     <div>
@@ -73,8 +77,7 @@ const Home = () => {
         videoData={upcoming}
         mode="movie"
       />
-      {/* 일단 영화만 노출 */}
-      {/* <VideoSwiperList
+      <VideoSwiperList
         loading={isDayTrendingTVShowLoading}
         listTitle="오늘의 TV Show TOP 20"
         videoData={dayTVShowTrendingList}
@@ -87,7 +90,7 @@ const Home = () => {
         videoData={weekTVShowTrendingList}
         mode="tv"
         rank
-      /> */}
+      />
     </div>
   );
 };

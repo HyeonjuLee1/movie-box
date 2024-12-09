@@ -1,20 +1,20 @@
 import { create } from 'zustand'
 import  { AxiosError } from 'axios';
 import axiosInst from "../utils/axiosInst";
-import { MovieBackdropsPostersListProps, MovieCrewDataProps, MovieInfoProps, MovieSimilarProps, TrailerProps, VideoDataProps } from '../types';
+import { MovieBackdropsPostersListProps, CrewDataProps, MovieInfoProps, TrailerProps, MovieItemProps } from '../types';
 
 interface MovieState {
-  dayTrending: VideoDataProps[];
-  weekTrending: VideoDataProps[];
-  popular: VideoDataProps[];
-  upcoming: VideoDataProps[];
-  movieInfo?: MovieInfoProps
+  dayTrending: MovieItemProps[];
+  weekTrending: MovieItemProps[];
+  popular: MovieItemProps[];
+  upcoming: MovieItemProps[];
+  movieInfo?: MovieInfoProps;
   movieTrailerInfo?: TrailerProps
-  movieCrewData?: MovieCrewDataProps
+  movieCrewData?: CrewDataProps
   movieBackdropsList?: MovieBackdropsPostersListProps[]
   moviePostersList?: MovieBackdropsPostersListProps[]
-  similarMovieList?: MovieSimilarProps[]
-  foundMovie?:VideoDataProps[];
+  similarMovieList?: MovieItemProps[]
+  foundMovie?:MovieItemProps[];
 
   isDayTrendingLoading: boolean;
   isWeekTrendingLoading: boolean;
@@ -50,7 +50,7 @@ const getAPI = async (url: string) => {
     if (axiosError.response) {
       alert(axiosError.message);
     } else {
-      alert('An unknown error occurred');
+      alert('TMDB MOVIE API 요청 한도가 초과되었습니다.');
     }
     throw axiosError;
   }

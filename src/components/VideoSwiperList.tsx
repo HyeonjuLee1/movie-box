@@ -1,20 +1,28 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import VideoItem from "./VideoItem";
-import { MovieSimilarProps, VideoDataProps } from "../types";
+import { MovieItemProps, TvShowItemProps } from "../types";
 import { useNavigate } from "react-router-dom";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import LoadingSwiperList from "./LoadingSwiperList";
 // 테스트용 데이터
 // import { videoList } from "../mocks/data/videoList";
 
-interface VideoSwiperListProps {
-  loading: boolean;
-  listTitle: string;
-  mode: string;
-  videoData?: VideoDataProps[] | MovieSimilarProps[] | undefined;
-  rank?: boolean;
-}
+type VideoSwiperListProps =
+  | {
+      loading: boolean;
+      listTitle: string;
+      mode: "movie";
+      videoData?: MovieItemProps[];
+      rank?: boolean;
+    }
+  | {
+      loading: boolean;
+      listTitle: string;
+      mode: "tv";
+      videoData?: TvShowItemProps[];
+      rank?: boolean;
+    };
 
 const VideoSwiperList = ({
   loading,
@@ -27,15 +35,44 @@ const VideoSwiperList = ({
 
   const handleGoDetail = useCallback(
     (id: number) => {
-      // 일단 영화만
       if (mode === "tv") {
-        navigate(`/tv/detail/${id}`);
+        navigate(`/tvshow/detail/${id}`);
       } else {
         navigate(`/movie/detail/${id}`);
       }
     },
     [mode, navigate]
   );
+
+  const swiperVideoSlideMarkup = useMemo(() => {
+    if (videoData) {
+      if (mode === "tv") {
+        return videoData.map((video, index) => (
+          <SwiperSlide key={video.id} className="flex justify-center">
+            <VideoItem
+              poster_path={video.poster_path}
+              title={video.name}
+              rank={rank}
+              rankNumber={index + 1}
+              onClick={() => handleGoDetail(video.id)}
+            />
+          </SwiperSlide>
+        ));
+      } else if (mode === "movie") {
+        return videoData.map((video, index) => (
+          <SwiperSlide key={video.id} className="flex justify-center">
+            <VideoItem
+              poster_path={video.poster_path}
+              title={video.title}
+              rank={rank}
+              rankNumber={index + 1}
+              onClick={() => handleGoDetail(video.id)}
+            />
+          </SwiperSlide>
+        ));
+      }
+    }
+  }, [handleGoDetail, mode, rank, videoData]);
 
   return (
     <section>
@@ -82,17 +119,7 @@ const VideoSwiperList = ({
                 },
               }}
             >
-              {videoData.map((video, index) => (
-                <SwiperSlide key={video.id} className="flex justify-center">
-                  <VideoItem
-                    poster_path={video.poster_path}
-                    title={video.title}
-                    rank={rank}
-                    rankNumber={index + 1}
-                    onClick={() => handleGoDetail(video.id)}
-                  />
-                </SwiperSlide>
-              ))}
+              {swiperVideoSlideMarkup}
             </Swiper>
           )}
         </div>

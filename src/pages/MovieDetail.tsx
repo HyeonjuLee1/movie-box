@@ -31,10 +31,10 @@ const MovieDetail = () => {
     if (id) {
       const numberId = parseInt(id);
       getMovieDetail(numberId);
-      getTrailer(numberId);
       getMovieCastList(numberId);
       getMovieImages(numberId);
       getSimilarMovieList(numberId);
+      getTrailer(numberId);
     }
 
     window.scrollTo(0, 0);
@@ -68,8 +68,9 @@ const MovieDetail = () => {
     <main>
       <VideoBigImage
         loading={isDetailLoading}
-        movieInfo={movieInfo}
+        videoInfo={movieInfo}
         onOpenModal={() => setOpenTrailerModal(true)}
+        mode="movie"
       />
       <div className="w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>
 
@@ -77,7 +78,8 @@ const MovieDetail = () => {
         isDetailLoading={isDetailLoading}
         directorName={directorName}
         actors={actors}
-        movieInfo={movieInfo}
+        videoInfo={movieInfo}
+        mode="movie"
       />
 
       <div className="w-[1120px] h-[1px] bg-secondary mx-auto my-[45px]"></div>

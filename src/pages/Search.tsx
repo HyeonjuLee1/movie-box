@@ -15,7 +15,7 @@ const Search = () => {
     }
     window.scrollTo(0, 0);
   }, [getSearchMovie, keyword]);
-  console.log("foundMovie", foundMovie);
+  // console.log("foundMovie", foundMovie);
   return (
     <main className="mt-[30px]">
       {foundMovie && foundMovie?.length > 0 ? (
