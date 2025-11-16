@@ -28,6 +28,14 @@ API
 - 해당 프로젝트의 상단 베너를 제외한 데이터(예고편, 영화리스트, 비슷한 영화, 영화정보 등등)는 TMDB api에서 가져왔습니다.
 - 메인화면 상단 우측에 검색어를 입력한 후 Enter를 누르면 search페이지로 이동하며, 관련 영화를 렌더링 합니다.
 
+웹 접근성 개선
+
+- 메인 페이지에 시멘틱 태그(<main>, <section>) 적용
+- 캐러셀(Banner) 접근성 속성(aria-live, aria-atomic) 추가
+- Swiper 페이지네이션을 접근성 있는 <button> 형태로 커스텀
+- 자동재생 버튼에 aria-label, aria-pressed 적용
+- 스크린리더용 숨김 텍스트(sr-only) 일부 요소에 추가
+
 ## Project Setup
 
 ```sh
