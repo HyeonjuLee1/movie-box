@@ -44,43 +44,66 @@ const VideoSwiperList = ({
     [mode, navigate]
   );
 
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent, id: number) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        handleGoDetail(id);
+      }
+    },
+    [handleGoDetail]
+  );
+
   const swiperVideoSlideMarkup = useMemo(() => {
     if (videoData) {
       if (mode === "tv") {
         return videoData.map((video, index) => (
-          <SwiperSlide key={video.id} className="flex justify-center">
+          <SwiperSlide
+            key={video.id}
+            className="flex justify-center"
+            role="group"
+            aria-roledescription="슬라이드"
+            aria-label={`${index + 1} / ${videoData.length}`}>
             <VideoItem
               poster_path={video.poster_path}
               title={video.name}
               rank={rank}
               rankNumber={index + 1}
               onClick={() => handleGoDetail(video.id)}
+              onKeyDown={(e) => handleKeyDown(e, video.id)}
             />
           </SwiperSlide>
         ));
       } else if (mode === "movie") {
         return videoData.map((video, index) => (
-          <SwiperSlide key={video.id} className="flex justify-center">
+          <SwiperSlide
+            key={video.id}
+            className="flex justify-center"
+            role="group"
+            aria-roledescription="슬라이드"
+            aria-label={`${index + 1} / ${videoData.length}`}>
             <VideoItem
               poster_path={video.poster_path}
               title={video.title}
               rank={rank}
               rankNumber={index + 1}
               onClick={() => handleGoDetail(video.id)}
+              onKeyDown={(e) => handleKeyDown(e, video.id)}
             />
           </SwiperSlide>
         ));
       }
     }
-  }, [handleGoDetail, mode, rank, videoData]);
+  }, [handleGoDetail, handleKeyDown, mode, rank, videoData]);
+
+  const contentType = mode === "tv" ? "TV Show" : "영화";
 
   return (
-    <section>
+    <section aria-label={`${listTitle} 목록`}>
       <div
         className={`w-full max-w-[1120px] min-h-[383px] mx-auto  ${
           loading ? "mb-[80px]" : "mb-0"
-        }`}
-      >
+        }`}>
         <div className="flex justify-between mb-5">
           <span className="text-white text-[24px]">{listTitle}</span>
         </div>
@@ -88,11 +111,17 @@ const VideoSwiperList = ({
         <div
           className={`flex justify-center items-center ${
             loading && "justify-between"
-          }`}
-        >
-          {loading && <LoadingSwiperList />}
+          }`}>
+          {loading && (
+            <div role="status" aria-live="polite" aria-busy="true">
+              <span className="sr-only">
+                {contentType} 목록을 불러오는 중입니다.
+              </span>
+              <LoadingSwiperList />
+            </div>
+          )}
 
-          {!loading && videoData && (
+          {!loading && videoData && videoData.length > 0 && (
             <Swiper
               spaceBetween={10}
               slidesPerView={5}
@@ -118,9 +147,17 @@ const VideoSwiperList = ({
                   spaceBetween: 8,
                 },
               }}
-            >
+              aria-label={`${listTitle} 캐러셀`}>
               {swiperVideoSlideMarkup}
             </Swiper>
+          )}
+
+          {!loading && (!videoData || videoData.length === 0) && (
+            <div role="status" aria-live="polite">
+              <p className="text-white text-center">
+                표시할 {contentType} 정보가 없습니다.
+              </p>
+            </div>
           )}
         </div>
       </div>

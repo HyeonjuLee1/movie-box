@@ -47,7 +47,12 @@ const Home = () => {
   ]);
 
   return (
-    <div>
+    <main
+      className="px-4 sm:px-6 lg:px-0"
+      role="main"
+      aria-label="영화 정보 메인 페이지">
+      <h1 className="sr-only">영화 및 TV Show 정보</h1>
+
       <Banner />
       <VideoSwiperList
         loading={isDayTrendingLoading}
@@ -91,7 +96,7 @@ const Home = () => {
         mode="tv"
         rank
       />
-    </div>
+    </main>
   );
 };
 

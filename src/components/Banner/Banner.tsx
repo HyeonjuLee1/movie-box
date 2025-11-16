@@ -29,7 +29,7 @@ const Banner = () => {
   }, [isAutoPlay]);
 
   return (
-    <>
+    <section aria-label="메인 배너" aria-roledescription="캐러셀">
       <Swiper
         id="banner-section"
         onSwiper={onSwiper}
@@ -41,8 +41,18 @@ const Banner = () => {
         pagination={{
           el: ".swiper-pagination",
           clickable: true,
+          bulletActiveClass: "swiper-pagination-bullet-active",
+          renderBullet: (index, className) => {
+            return `<button class="${className}" aria-label="슬라이드 ${
+              index + 1
+            }로 이동"></button>`;
+          },
         }}
-        navigation={true}
+        // navigation={true}
+        navigation={{
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        }}
         autoplay={{
           delay: 5000,
           disableOnInteraction: false,
@@ -53,18 +63,22 @@ const Banner = () => {
             slidesPerView: "auto",
           },
         }}
-      >
-        {banners.map((banner) => (
+        aria-live="polite"
+        aria-atomic="true">
+        {banners.map((banner, index) => (
           <SwiperSlide
             key={`banner-${banner.bannerNo}`}
             className="xl:w-fit w-full min-w-full max-xl:min-w-[auto] xl:min-w-[1120px]"
             style={{ width: "fit-content" }}
-          >
+            role="group"
+            aria-roledescription="슬라이드"
+            aria-label={`${index + 1} / ${banners.length}`}>
             <div>
               <img
                 src={banner.imageUrl}
-                alt={banner.alt}
+                alt=""
                 className="rounded-2xl relative xl:max-w-[1120px] h-[508px] max-md:h-[400px] max-sm:h-[320px]"
+                aria-hidden="true"
               />
               <img
                 src={banner.textImageUrl}
@@ -75,18 +89,30 @@ const Banner = () => {
           </SwiperSlide>
         ))}
 
-        <div className="main-nav">
-          <button className="autoplay-icon-btn" onClick={handleAutoplay}>
+        <div className="main-nav" role="group" aria-label="배너 컨트롤">
+          <button
+            className="autoplay-icon-btn"
+            onClick={handleAutoplay}
+            aria-label={isAutoPlay ? "자동 재생 일시정지" : "자동 재생 시작"}
+            aria-pressed={isAutoPlay}
+            type="button">
             <FontAwesomeIcon
               icon={isAutoPlay ? faPause : faPlay}
               size="xl"
               className="flex justify-between items-center text-white"
+              aria-hidden="true"
             />
           </button>
-          <div className="swiper-pagination"></div>
+          <span className="sr-only">
+            {isAutoPlay ? "자동 재생 중" : "자동 재생 중지됨"}
+          </span>
+          <div
+            className="swiper-pagination"
+            role="group"
+            aria-label="슬라이드 페이지네이션"></div>
         </div>
       </Swiper>
-    </>
+    </section>
   );
 };
 

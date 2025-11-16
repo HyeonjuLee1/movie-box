@@ -1,0 +1,94 @@
+/* 스크린 리더 전용 클래스 - 시각적으로는 숨기지만 스크린 리더에서는 읽히도록 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* 포커스 시에만 보이는 스킵 링크 (페이지 상단에 추가 권장) */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000;
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* 키보드 포커스 스타일 개선 */
+*:focus-visible {
+  outline: 2px solid #4A90E2;
+  outline-offset: 2px;
+}
+
+/* 버튼 포커스 스타일 */
+button:focus-visible {
+  outline: 2px solid #4A90E2;
+  outline-offset: 2px;
+}
+
+/* Swiper 네비게이션 버튼 접근성 개선 */
+.swiper-button-next,
+.swiper-button-prev {
+  color: white !important;
+}
+
+.swiper-button-next:focus-visible,
+.swiper-button-prev:focus-visible {
+  outline: 2px solid #4A90E2;
+  outline-offset: 2px;
+}
+
+/* Swiper 페이지네이션 버튼 접근성 개선 */
+.swiper-pagination-bullet {
+  background: white;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.swiper-pagination-bullet:focus-visible {
+  outline: 2px solid #4A90E2;
+  outline-offset: 2px;
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  background: white;
+}
+
+/* 고대비 모드 지원 */
+@media (prefers-contrast: high) {
+  .text-white {
+    color: #ffffff !important;
+  }
+  
+  button {
+    border: 2px solid currentColor;
+  }
+}
+
+/* 애니메이션 감소 모드 지원 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .swiper {
+    transition: none !important;
+  }
+}
