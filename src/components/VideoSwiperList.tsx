@@ -4,7 +4,7 @@ import VideoItem from "./VideoItem";
 import { MovieItemProps, TvShowItemProps } from "../types";
 import { useNavigate } from "react-router-dom";
 import { useCallback, useMemo } from "react";
-import LoadingSwiperList from "./LoadingSwiperList";
+import LoadingVideoList from "./LoadingVideoList";
 // 테스트용 데이터
 // import { videoList } from "../mocks/data/videoList";
 
@@ -117,7 +117,7 @@ const VideoSwiperList = ({
               <span className="sr-only">
                 {contentType} 목록을 불러오는 중입니다.
               </span>
-              <LoadingSwiperList />
+              <LoadingVideoList />
             </div>
           )}
 

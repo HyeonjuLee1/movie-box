@@ -11,31 +11,40 @@
   border-width: 0;
 }
 
-/* 포커스 시에만 보이는 스킵 링크 (페이지 상단에 추가 권장) */
+/* 포커스 시에만 보이는 스킵 링크 */
 .skip-link {
   position: absolute;
   top: -40px;
   left: 0;
   background: #000;
   color: white;
-  padding: 8px;
+  padding: 12px 16px;
   text-decoration: none;
-  z-index: 100;
+  z-index: 9999;
+  font-weight: bold;
+  border-radius: 0 0 4px 4px;
 }
 
 .skip-link:focus {
   top: 0;
+  outline: 2px solid #4a90e2;
+  outline-offset: 2px;
+}
+
+/* 검색 버튼 스타일 */
+button[type="submit"] {
+  cursor: pointer;
 }
 
 /* 키보드 포커스 스타일 개선 */
 *:focus-visible {
-  outline: 2px solid #4A90E2;
+  outline: 2px solid #4a90e2;
   outline-offset: 2px;
 }
 
 /* 버튼 포커스 스타일 */
 button:focus-visible {
-  outline: 2px solid #4A90E2;
+  outline: 2px solid #4a90e2;
   outline-offset: 2px;
 }
 
@@ -47,7 +56,7 @@ button:focus-visible {
 
 .swiper-button-next:focus-visible,
 .swiper-button-prev:focus-visible {
-  outline: 2px solid #4A90E2;
+  outline: 2px solid #4a90e2;
   outline-offset: 2px;
 }
 
@@ -59,7 +68,7 @@ button:focus-visible {
 }
 
 .swiper-pagination-bullet:focus-visible {
-  outline: 2px solid #4A90E2;
+  outline: 2px solid #4a90e2;
   outline-offset: 2px;
   opacity: 1;
 }
@@ -74,7 +83,7 @@ button:focus-visible {
   .text-white {
     color: #ffffff !important;
   }
-  
+
   button {
     border: 2px solid currentColor;
   }
@@ -87,7 +96,7 @@ button:focus-visible {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  
+
   .swiper {
     transition: none !important;
   }

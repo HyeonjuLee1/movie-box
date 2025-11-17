@@ -1,4 +1,4 @@
-@import "./styles/accessibility.css";
+/* @import "./styles/accessibility.css"; */
 
 @tailwind base;
 @tailwind components;
@@ -24,4 +24,11 @@ body {
   border-radius: 20px;
   border: 6px solid transparent;
   background-clip: content-box;
+}
+
+/* Chrome, Edge, Safari clear 버튼 제거 */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 0;
+  width: 0;
 }
